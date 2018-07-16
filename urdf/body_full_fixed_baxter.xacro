@@ -1,0 +1,393 @@
+<?xml version="1.0"?>
+
+<robot name="body"
+  xmlns:xacro="http://ros.org/wiki/xacro"
+  xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+  xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+  xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+  xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+  xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+  xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+  xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+  xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+  xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+  xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics">
+
+<!--
+  ### KINEMATIC MODEL ###
+  The kinematic model consists of a complete body.
+-->
+  <xacro:macro name="body">
+
+    <!-- World body -->
+    <link name="world"/>
+
+    <!-- torso link -->
+    <joint name="torso_joint" type="continuous">
+        <origin xyz="0 0 0" rpy="0 ${-M_PI_2} 0" />
+        <parent link="world"/>
+        <child link="torso" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="torso">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${E_height*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${E_height} ${E_wide} ${E_depth}"/>
+            </geometry>
+           <material name="Black"/>
+        </visual>
+    </link>
+
+    <!-- head link -->
+    <joint name="head_joint" type="continuous">
+        <origin xyz="${E_height} 0 0" rpy="0 ${-M_PI_2} 0" />
+        <parent link="torso"/>
+        <child link="head" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="head">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${C_height*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${C_height} ${C_wide} ${C_depth}"/>
+            </geometry>
+           <material name="Gray"/>
+        </visual>
+    </link>
+    
+    <!-- left_arm_mount link -->
+    <!--
+    <joint name="left_arm_mount_joint" type="continuous">
+        <origin xyz="${E_height} ${E_wide*0.3} 0" rpy="${-M_PI_2} 0 ${M_PI_2}" />
+        <parent link="torso"/>
+        <child link="left_arm_mount" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="left_arm_mount">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 ${H_height*0.5} 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${H_wide} ${H_height} ${H_depth}"/>
+            </geometry>
+           <material name="Black"/>
+        </visual>
+    </link>
+    -->
+
+    <!-- left_lower_shoulder link -->
+    <joint name="left_lower_shoulder_joint" type="continuous">
+        <origin xyz="${E_height} ${E_wide*0.5} 0" rpy="${-M_PI_2} ${-M_PI_2} 0" />
+        <parent link="torso"/>
+        <child link="left_lower_shoulder" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="left_lower_shoulder">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${-B_length*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${B_length} ${B_side} ${B_side}"/>
+            </geometry>
+           <material name="Magenta"/>
+        </visual>
+    </link>
+
+    <!-- left_lower_elbow link -->
+    <joint name="left_lower_elbow_joint" type="continuous">
+        <origin xyz="${-B_length} 0 0" rpy="0 ${-M_PI_2} ${-M_PI_2}" />
+        <parent link="left_lower_shoulder"/>
+        <child link="left_lower_elbow" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="left_lower_elbow">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${-B_length*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${B_length} ${B_side} ${B_side}"/>
+            </geometry>
+           <material name="Yellow"/>
+        </visual>
+    </link>
+
+    <!-- left_lower_forearm link -->
+    <joint name="left_lower_forearm_joint" type="continuous">
+        <origin xyz="${-B_length} 0 0" rpy="0 ${-M_PI_2} ${-M_PI_2}" />
+        <parent link="left_lower_elbow"/>
+        <child link="left_lower_forearm" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="left_lower_forearm">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${-M_height*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${M_height} ${M_wide} ${M_depth}"/>
+            </geometry>
+           <material name="Cyan"/>
+        </visual>
+    </link>
+    
+    <!-- right_arm_mount link -->
+    <!--<joint name="right_arm_mount_joint" type="continuous">
+        <origin xyz="${E_height} ${-E_wide*0.3} 0" rpy="${-M_PI_2} 0 ${M_PI_2}" />
+        <parent link="torso"/>
+        <child link="right_arm_mount" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="right_arm_mount">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 ${H_height*0.5} 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${H_wide} ${H_height} ${H_depth}"/>
+            </geometry>
+           <material name="Black"/>
+        </visual>
+    </link>-->
+
+    <!-- right_lower_shoulder link -->
+    <joint name="right_lower_shoulder_joint" type="continuous">
+        <origin xyz="${E_height} ${-E_wide*0.5} 0" rpy="${M_PI_2} ${-M_PI_2} 0" />
+        <parent link="torso"/>
+        <child link="right_lower_shoulder" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="right_lower_shoulder">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${-B_length*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${B_length} ${B_side} ${B_side}"/>
+            </geometry>
+           <material name="Red"/>
+        </visual>
+    </link>
+
+    <!-- right_lower_elbow link -->
+    <joint name="right_lower_elbow_joint" type="continuous">
+        <origin xyz="${-B_length} 0 0" rpy="0 ${-M_PI_2} ${M_PI_2}" />
+        <parent link="right_lower_shoulder"/>
+        <child link="right_lower_elbow" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="right_lower_elbow">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${-B_length*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${B_length} ${B_side} ${B_side}"/>
+            </geometry>
+           <material name="Green"/>
+        </visual>
+    </link>
+
+    <!-- right_lower_forearm link -->
+    <joint name="right_lower_forearm_joint" type="continuous">
+        <origin xyz="${-B_length} 0 0" rpy="0 ${-M_PI_2} ${M_PI_2}" />
+        <parent link="right_lower_elbow"/>
+        <child link="right_lower_forearm" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="right_lower_forearm">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${-M_height*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${M_height} ${M_wide} ${M_depth}"/>
+            </geometry>
+           <material name="Blue"/>
+        </visual>
+    </link>
+    
+    <!-- PI link -->
+    <joint name="PI_joint" type="fixed">
+        <origin xyz="0 ${E_wide*0.3} 0" rpy="0 0 0" />
+        <parent link="torso"/>
+        <child link="PI" />
+    </joint>
+
+    <link name="PI">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 ${-P_length*0.5}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${P_side} ${P_side} ${P_length}"/>
+            </geometry>
+           <material name="Gray"/>
+        </visual>
+    </link>
+
+    <!-- PD link -->
+    <joint name="PD_joint" type="fixed">
+        <origin xyz="0 ${-E_wide*0.3} 0" rpy="0 0 0" />
+        <parent link="torso"/>
+        <child link="PD" />
+    </joint>
+
+    <link name="PD">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 ${-P_length*0.5}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${P_side} ${P_side} ${P_length}"/>
+            </geometry>
+           <material name="Gray"/>
+        </visual>
+    </link>
+    
+    <!-- GI link -->
+    <joint name="GI_joint" type="fixed">
+        <origin xyz="0 0 ${-P_length}" rpy="0 0 0"/>
+        <parent link="PI"/>
+        <child link="GI" />
+    </joint>
+
+    <link name="GI">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${-G_length*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${G_length} ${G_side} ${G_side}"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+
+    <!-- GD link -->
+    <joint name="GD_joint" type="fixed">
+        <origin xyz="0 0 ${-P_length}" rpy="0 0 0"/>
+        <parent link="PD"/>
+        <child link="GD" />
+    </joint>
+    
+    <link name="GD">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="${-G_length*0.5} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${G_length} ${G_side} ${G_side}"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+    
+    <!-- left_arm_mount link -->
+    <joint name="left_arm_mount_joint" type="continuous">
+        <origin xyz="${-G_length} ${E_wide*0.3} ${-P_length}" rpy="0 0 ${M_PI_2}" />
+        <parent link="torso"/>
+        <child link="left_arm_mount" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="left_arm_mount">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 ${-Z_height*0.5} 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${Z_wide} ${Z_height} ${Z_depth}"/>
+            </geometry>
+           <material name="Black"/>
+        </visual>
+    </link>
+
+    <!-- right_arm_mount link -->    
+    <joint name="right_arm_mount_joint" type="continuous">
+        <origin xyz="${-G_length} ${-E_wide*0.3} ${-P_length}" rpy="0 0 ${M_PI_2}" />
+        <parent link="torso"/>
+        <child link="right_arm_mount" />
+		<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="right_arm_mount">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 ${-Z_height*0.5} 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${Z_wide} ${Z_height} ${Z_depth}"/>
+            </geometry>
+           <material name="Black"/>
+        </visual>
+    </link>
+    
+  </xacro:macro>
+
+</robot>

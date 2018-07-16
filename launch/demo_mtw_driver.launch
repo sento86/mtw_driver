@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+  
+<!-- ****************************************************************************** -->
+
+  <!-- MTw driver -->
+  <include file="$(find mtw_driver)/launch/mtw_driver.launch"/>
+  
+<!-- ****************************************************************************** -->
+
+  <!-- Model description -->
+  <!--<include file="$(find mtw_driver)/launch/robot_description.launch"/>-->
+  <include file="$(find mtw_driver)/launch/baxter_description.launch">
+    <arg name="name_space" value="puppet" />
+    <arg name="tf_prefix" value="" />
+  </include>
+
+<!-- ****************************************************************************** -->
+
+  <!-- Rviz -->
+  <include file="$(find mtw_driver)/launch/rviz/rviz_robot.launch"/>
+
+<!-- ****************************************************************************** -->
+
+</launch>

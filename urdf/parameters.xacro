@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<robot name="parameters"
+  xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- MODEL PARAMETERS -->
+
+  <!-- Cuerpo -->
+  <xacro:property name="E_wide" value="0.5" />
+  <xacro:property name="E_height" value="0.8" />
+  <xacro:property name="E_depth" value="0.2" />
+
+  <!-- Cabeza -->
+  <xacro:property name="C_wide" value="0.2" />
+  <xacro:property name="C_height" value="0.25" />
+  <xacro:property name="C_depth" value="0.2" />
+
+  <!-- Hombro -->
+  <xacro:property name="H_wide" value="0.2" />
+  <xacro:property name="H_height" value="0.1" />
+  <xacro:property name="H_depth" value="0.05" />
+
+  <!-- Brazo -->
+  <xacro:property name="B_side" value="0.1" />
+  <xacro:property name="B_length" value="0.4" />
+
+  <!-- Ante-Brazo -->
+  <xacro:property name="A_side" value="0.1" />
+  <xacro:property name="A_length" value="0.3" />
+
+  <!-- Mano -->
+  <xacro:property name="M_wide" value="0.1" />
+  <xacro:property name="M_height" value="0.2" />
+  <xacro:property name="M_depth" value="0.05" />
+
+  <!-- Pierna -->
+  <xacro:property name="P_side" value="0.2" />
+  <xacro:property name="P_length" value="0.7" />
+
+  <!-- Gemelo -->
+  <xacro:property name="G_side" value="0.15" />
+  <xacro:property name="G_length" value="0.5" />
+
+  <!-- Zapato -->
+  <xacro:property name="Z_wide" value="0.1" />
+  <xacro:property name="Z_height" value="0.3" />
+  <xacro:property name="Z_depth" value="0.08" />
+
+</robot>

@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+
+<robot name="body"
+  xmlns:xacro="http://ros.org/wiki/xacro"
+  xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+  xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+  xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+  xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+  xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+  xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+  xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+  xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+  xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+  xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics">
+
+<!--
+  ### KINEMATIC MODEL ###
+  The kinematic model consists of a upper body.
+-->
+  <xacro:macro name="body">
+
+    <!-- World body -->
+    <link name="world">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+    </link>
+
+    <!-- E link -->
+    <joint name="E_joint" type="continuous">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="E" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="E">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+    
+    <!-- ED link -->
+    <joint name="ED_joint" type="continuous">
+        <origin xyz="0 -1 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="ED" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="ED">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+    
+    <!-- EI link -->
+    <joint name="EI_joint" type="continuous">
+        <origin xyz="0 1 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="EI" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="EI">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+        
+    <!-- BD link -->
+    <joint name="BD_joint" type="continuous">
+        <origin xyz="0 -2 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="BD" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="BD">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+    
+    <!-- BI link -->
+    <joint name="BI_joint" type="continuous">
+        <origin xyz="0 2 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="BI" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="BI">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+            
+    <!-- AD link -->
+    <joint name="AD_joint" type="continuous">
+        <origin xyz="0 -3 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="AD" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="AD">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+    
+    <!-- AI link -->
+    <joint name="AI_joint" type="continuous">
+        <origin xyz="0 3 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="AI" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="AI">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+            
+    <!-- MD link -->
+    <joint name="MD_joint" type="continuous">
+        <origin xyz="0 -4 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="MD" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="MD">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+    
+    <!-- MI link -->
+    <joint name="MI_joint" type="continuous">
+        <origin xyz="0 4 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="MI" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="MI">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+    
+    <!-- C link -->
+    <joint name="C_joint" type="continuous">
+        <origin xyz="1 0 0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="C" />
+	<axis xyz="0 0 1" />
+    </joint>
+
+    <link name="C">
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.3 0.1"/>
+            </geometry>
+           <material name="Orange"/>
+        </visual>
+    </link>
+    
+  </xacro:macro>
+
+</robot>

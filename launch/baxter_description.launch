@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- ****************************************************************************** -->
+
+  <arg name="name_space" default="puppet" />
+  <arg name="tf_prefix" default="" />
+
+<!-- ****************************************************************************** -->
+
+  <!-- Create Robot model -->
+  <param name="model_description" command="$(find xacro)/xacro --inorder '$(find mtw_driver)/urdf/baxter.urdf.xacro' gazebo:=false" />
+
+<!-- ****************************************************************************** -->
+
+  <!-- Robot state publisher -->
+<!--  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen">-->
+  <node name="model_state_publisher" pkg="model_state_publisher" type="model_state_publisher" respawn="true" output="screen">
+    <param name="publish_frequency" type="double" value="100.0" />
+<!--    <param name="tf_prefix" type="string" value="$(arg tf_prefix)" />-->
+  </node>
+
+  <node name="model_joint_state_publisher" pkg="model_joint_state_publisher" type="model_joint_state_publisher" respawn="true">
+    <param name="publish_frequency" type="double" value="100.0" />
+<!--    <param name="tf_prefix" type="string" value="$(arg tf_prefix)" />-->
+    <param name="name_space" type="string" value="$(arg name_space)" />
+  </node>
+
+<!-- ****************************************************************************** -->
+
+</launch>
